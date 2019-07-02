@@ -1,13 +1,16 @@
 var express = require('express');
 var app = express();
+const http = require('http')
 const port = process.env.PORT || 3000
-app.use(express.static('./public'))
-var server = app.listen(port);
+const server = http.Server(app)
 
-var socket = require('socket.io');
-var io = socket(server);
+app.use('/',express.static(__dirname +'/public'))
 
-io.sockets.on('connection', function (socket){
+
+var socketio = require('socket.io');
+var io = socketio(server);
+
+io.on('connection', function (socket){
     console.log('New connection '+socket.id);
 
     socket.on('mouse',function(data){
@@ -16,7 +19,9 @@ io.sockets.on('connection', function (socket){
     })
 })
 
-
+server.listen(port,()=>{
+    console.log('Server started on '+ port)
+})
 
 
 
