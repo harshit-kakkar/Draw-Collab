@@ -5,7 +5,9 @@ function setup(){
     createCanvas(1296,612);
     background(51);
 
-    socket = io.connect('http://localhost:3000')
+    // socket = io.connect('http://localhost:3000')
+    socket = io.connect('https://drawcollaborate.herokuapp.com/')
+    
     socket.on('mouse',function(data){
 
         
